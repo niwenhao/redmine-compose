@@ -9,8 +9,10 @@ run aptitude install -y ruby-dev
 run aptitude install -y rubygems
 run aptitude install -y imagemagick libmagick-dev libmagickcore-dev libmagickwand-dev
 run aptitude install -y pkg-config
+run aptitude install -y curl
 run gem install bundle
-add redmine-3.2.3.tar.gz /opt/
+workdir /opt
+run curl http://www.redmine.org/releases/redmine-3.2.3.tar.gz | tar -xzf -
 run ln -s /opt/redmine-3.2.3 /opt/redmine
 workdir /opt/redmine
 run bundle install
