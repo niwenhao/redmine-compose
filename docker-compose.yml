@@ -2,3 +2,17 @@ version: '2'
 services:
     test:
         build: redmine
+        ports:
+            - 80:3000
+        links:
+            - db
+
+    db:
+        build: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        expose:
+            - 3306
+        volumes:
+            - /mysql/data:/var/lib/mysql
+
