@@ -1,18 +1,26 @@
 version: '2'
 services:
-    test:
-        build: redmine
-        ports:
-            - 80:3000
-        links:
-            - db
-
     db:
         build: mysql
+        hostname: reddb
+        container_name: reddb
         environment:
             MYSQL_ROOT_PASSWORD: password
         expose:
             - 3306
         volumes:
+            - /APL/share:/APL/share
             - /mysql/data:/var/lib/mysql
+    redmine:
+        build: redmine
+        hostname: redapp
+        container_name: redapp
+        volumes:
+            - /APL/share:/APL/share
+            - /APL/tradestar:/var/www/redmine/plugins/tradestar
+        ports:
+            - 80:3000
+        links:
+            - db
+        command: bash -c 'while true; do sleep 3; done'
 
