@@ -21,19 +21,22 @@ run echo 'gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler
 add database.yml config/.
 run bundle install
 add configuration.yml config/.
+run aptitude install -y locales locales-all git procps
+run localedef -i ja_JP -f UTF-8 ja_JP.UTF8
 env RAILS_ENV production
 env LANG ja_JP.UTF8
-run aptitude install -y locales locales-all
-run localedef -i ja_JP -f UTF-8 ja_JP.UTF8
 run echo 'gem "spreadsheet"' >> Gemfile
 run echo 'gem "will_paginate"' >> Gemfile
-run bundle install
-run aptitude install -y git
+run echo 'gem "httpclient"' >> Gemfile
+run echo 'gem "byebug"' >> Gemfile
 run cd plugins && git clone https://github.com/ameya86/redmine_already_read.git
-run aptitude install -y procps
 run cd plugins && git clone https://github.com/altsol/redmine_mattermost.git redmine_mattermost
 run svn co http://192.177.237.12:8080/svn/AplTools/dev-branch/030.RedMine/tradestar_3.2.3 plugins/tradestar
-run echo 'gem "httpclient"' >> Gemfile
 run bundle install
-cmd sleep 5 && passenger start -e production
+run grep -v "passenger" Gemfile > a && mv a Gemfile
+add _vimrc /root/
+add _bashrc /root/
+run cd /root && cat _vimrc >> .vimrc && cat _bashrc >> .bashrc
+add production.rb /var/www/redmine/config/environments/
+cmd passenger start -e production
 

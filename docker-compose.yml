@@ -12,27 +12,27 @@ services:
             - /APL/share:/APL/share
             - /mysql/data:/var/lib/mysql
     redmine:
-        build: redmine
+        build: redmine-debian
         hostname: redapp
         container_name: redapp
         volumes:
             - /APL/share:/APL/share
             - /APL/tradestar:/var/www/redmine/plugins/tradestar
+            - /APL/docker/redmine/var/www/redmine/plugins:/var/www/redmine/plugins
         ports:
             - 80:3000
         links:
             - db
-        command: bash -c 'while true; do sleep 3; done'
-    redebian:
-        build: redebian
-        hostname: redebian
-        container_name: redebian
+            - mmsite
+        command: bash -c 'while true; do sleep 10; done'
+    mmsite:
+        build: mattermost
+        hostname: mmsite
+        container_name: mmsite
         volumes:
             - /APL/share:/APL/share
-            - /APL/tradestar:/var/www/redmine/plugins/tradestar
         ports:
-            - 81:3000
+            - 81:80
         links:
             - db
-        command: bash -c 'while true; do sleep 3; done'
-
+        #command: bash -c 'while true; do sleep 10; done'
