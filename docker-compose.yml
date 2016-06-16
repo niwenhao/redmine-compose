@@ -23,4 +23,16 @@ services:
         links:
             - db
         command: bash -c 'while true; do sleep 3; done'
+    redebian:
+        build: redebian
+        hostname: redebian
+        container_name: redebian
+        volumes:
+            - /APL/share:/APL/share
+            - /APL/tradestar:/var/www/redmine/plugins/tradestar
+        ports:
+            - 81:3000
+        links:
+            - db
+        command: bash -c 'while true; do sleep 3; done'
 
