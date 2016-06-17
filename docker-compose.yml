@@ -9,18 +9,18 @@ services:
         expose:
             - 3306
         volumes:
+            - /home/nwh/workspace/redmine-compose/mysql/create_redminedb.sql:/create_redminedb.sql
             - /APL/share:/APL/share
-            - /mysql/data:/var/lib/mysql
+            - /APL/mysql/data:/var/lib/mysql
     redmine:
         build: redmine-debian
         hostname: redapp
         container_name: redapp
         volumes:
             - /APL/share:/APL/share
-            - /APL/tradestar:/var/www/redmine/plugins/tradestar
-            - /APL/docker/redmine/var/www/redmine/plugins:/var/www/redmine/plugins
+            - /APL/share/redmine/plugins:/var/www/redmine/plugins
         ports:
-            - 80:3000
+            - 82:3000
         links:
             - db
             - mmsite
@@ -32,7 +32,7 @@ services:
         volumes:
             - /APL/share:/APL/share
         ports:
-            - 81:80
+            - 81:81
         links:
             - db
-        #command: bash -c 'while true; do sleep 10; done'
+        command: bash -c 'while true; do sleep 10; done'
