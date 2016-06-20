@@ -24,15 +24,16 @@ services:
         links:
             - db
             - mmsite
-        command: bash -c 'while true; do sleep 10; done'
+        #command: bash -c 'while true; do sleep 10; done'
     mmsite:
         build: mattermost
         hostname: mmsite
         container_name: mmsite
         volumes:
             - /APL/share:/APL/share
+            - /APL/docker/mmsite/usr/local/mattermost/config:/usr/local/mattermost/config
         ports:
-            - 81:80
+            - 81:81
         links:
             - db
         #command: bash -c 'while true; do sleep 10; done'

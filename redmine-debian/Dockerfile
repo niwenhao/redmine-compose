@@ -38,5 +38,6 @@ add _vimrc /root/
 add _bashrc /root/
 run cd /root && cat _vimrc >> .vimrc && cat _bashrc >> .bashrc
 add production.rb /var/www/redmine/config/environments/
-cmd passenger start -e production
+run aptitude install -y rsyslog cron
+cmd service cron start; service rsyslog start; passenger start -e production
 
