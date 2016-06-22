@@ -13,7 +13,7 @@ services:
             - /mysql/data:/var/lib/mysql
     redmine:
         build:
-            context: redmine-debian
+            context: redmine
             args:
                 HTTP_PROXY: ${HTTP_PROXY}
                 HTTPS_PROXY: ${HTTPS_PROXY}
@@ -34,7 +34,7 @@ services:
         links:
             - db
             - mmsite
-        #command: bash -c 'while true; do sleep 10; done'
+        command: bash -c 'while true; do sleep 10; done'
     mmsite:
         build:
             context: mattermost
