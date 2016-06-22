@@ -1,10 +1,11 @@
 from ubuntu:xenial
 add rootca.crt /etc/.
+run echo XXX
 env CURL_CA_BUNDLE /etc/rootca.crt
-env HTTP_PROXY http://isc00362:nwh1605@172.19.246.129:88/
-env http_proxy http://isc00362:nwh1605@172.19.246.129:88/
-env HTTPS_PROXY http://isc00362:nwh1605@172.19.246.129:88/
-env https_proxy http://isc00362:nwh1605@172.19.246.129:88/
+env HTTP_PROXY ${HTTP_PROXY}
+env http_proxy ${http_proxy}
+env HTTPS_PROXY ${HTTPS_PROXY}
+env https_proxy ${https_proxy}
 run apt-get update -y
 run apt-get install -y aptitude
 run aptitude install -y build-essential libsqlite3-dev mysql-client libmysqlclient-dev vim
@@ -24,14 +25,12 @@ add configuration.yml config/.
 env RAILS_ENV production
 env LANG ja_JP.UTF8
 run localedef -i ja_JP -f UTF-8 ja_JP.UTF8
+run aptitude install -y git
+run aptitude install -y procps
 run echo 'gem "spreadsheet"' >> Gemfile
 run echo 'gem "will_paginate"' >> Gemfile
-run bundle install
-run aptitude install -y git
-run cd plugins && git clone https://github.com/ameya86/redmine_already_read.git
-run aptitude install -y procps
-run cd plugins && git clone https://github.com/altsol/redmine_mattermost.git redmine_mattermost
-run svn co http://192.177.237.12:8080/svn/AplTools/dev-branch/030.RedMine/tradestar_3.2.3 plugins/tradestar
+run echo 'gem "byebug"' >> Gemfile
+run echo 'gem "httpclient"' >> Gemfile
 run bundle install
 cmd sleep 5 && passenger start -e production
 

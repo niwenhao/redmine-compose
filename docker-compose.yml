@@ -12,12 +12,22 @@ services:
             - /APL/share:/APL/share
             - /mysql/data:/var/lib/mysql
     redmine:
-        build: redmine-debian
+        build:
+            context: redmine-debian
+            args:
+                HTTP_PROXY: ${HTTP_PROXY}
+                HTTPS_PROXY: ${HTTPS_PROXY}
+                http_proxy: ${http_proxy}
+                https_proxy: ${https_proxy}
         hostname: redapp
         container_name: redapp
+        environment:
+            HTTP_PROXY: ""
+            http_proxy: ""
+            HTTPS_PROXY: ""
+            https_proxy: ""
         volumes:
             - /APL/share:/APL/share
-            - /APL/tradestar:/var/www/redmine/plugins/tradestar
             - /APL/docker/redmine/var/www/redmine/plugins:/var/www/redmine/plugins
         ports:
             - 80:3000
@@ -26,7 +36,13 @@ services:
             - mmsite
         #command: bash -c 'while true; do sleep 10; done'
     mmsite:
-        build: mattermost
+        build:
+            context: mattermost
+            args:
+                HTTP_PROXY: ${HTTP_PROXY}
+                HTTPS_PROXY: ${HTTPS_PROXY}
+                http_proxy: ${http_proxy}
+                https_proxy: ${https_proxy}
         hostname: mmsite
         container_name: mmsite
         volumes:

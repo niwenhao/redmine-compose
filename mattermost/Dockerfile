@@ -1,10 +1,10 @@
 from debian
 add rootca.crt /etc/.
 env CURL_CA_BUNDLE /etc/rootca.crt
-env HTTP_PROXY http://isc00362:nwh1605@172.19.246.129:88/
-env http_proxy http://isc00362:nwh1605@172.19.246.129:88/
-env HTTPS_PROXY http://isc00362:nwh1605@172.19.246.129:88/
-env https_proxy http://isc00362:nwh1605@172.19.246.129:88/
+env HTTP_PROXY ${HTTP_PROXY}
+env http_proxy ${http_proxy}
+env HTTPS_PROXY ${HTTPS_PROXY}
+env https_proxy ${https_proxy}
 run apt-get update -y
 run apt-get install -y aptitude
 run aptitude install -y build-essential mysql-client libmysqlclient-dev vim
